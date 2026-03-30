@@ -28,6 +28,8 @@ templates/
 └── paper_review-format.pptx
 ```
 
+> **Tip**: 템플릿은 **슬라이드 마스터**를 활용하여 제작하는 것을 권장합니다. 슬라이드 마스터에서 레이아웃별 placeholder(제목, 본문, 발표자명 등)를 정의해두면, 코드가 해당 placeholder를 인식하여 자동으로 내용을 채워줍니다. PowerPoint에서 `보기 → 슬라이드 마스터`로 편집할 수 있습니다.
+
 ### 2. Workspace 구성
 
 `workspaces/` 하위에 **작업 날짜**를 폴더명으로 생성하고, 아래와 같이 구성합니다.
