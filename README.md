@@ -55,16 +55,44 @@ workspaces/
 
 ## Usage
 
-`main.py`의 `TARGET_DATE`를 작업 날짜로 설정한 뒤 실행합니다.
+`main.py`의 `TARGET_DATE`를 작업 날짜로 설정합니다.
 
 ```python
 # main.py
 TARGET_DATE = "260329"  # 작업할 날짜 폴더명
 ```
 
+PPT 생성은 두 가지 방식으로 사용할 수 있습니다.
+
+### 방법 1: Claude Code와 대화하며 생성 (권장)
+
+Claude Code에서 본 프로젝트 폴더를 열고, 논문에 대한 슬라이드 구조를 요청하면 `slide_structure.json`을 자동으로 생성해줍니다. 이후 PPT 빌더가 JSON을 읽어 PPT를 생성합니다.
+
 ```bash
+# slide_structure.json이 output/ 에 생성된 후
+conda activate pptmaker
+python -c "
+import json
+from ppt_builder import build_presentation
+
+with open('workspaces/260329/output/slide_structure.json', 'r') as f:
+    slide_data = json.load(f)
+
+prs = build_presentation(slide_data, 'templates/paper_review-format.pptx', 'workspaces/260329/assets')
+prs.save('workspaces/260329/output/260329_presentation.pptx')
+"
+```
+
+### 방법 2: API 키로 전체 자동 실행
+
+`ANTHROPIC_API_KEY` 환경변수를 설정하면 PDF 추출부터 PPT 생성까지 한 번에 실행됩니다.
+
+```bash
+export ANTHROPIC_API_KEY="your-api-key"
 conda activate pptmaker
 python main.py
 ```
+
+> 기존에 생성된 `slide_structure.json`이 있다면, 재사용 여부를 묻는 프롬프트가 나타납니다. API 재호출 없이 PPT 스타일만 수정하고 싶을 때 유용합니다.
 
 생성된 PPT는 `workspaces/{날짜}/output/` 에 저장됩니다.
