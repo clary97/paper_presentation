@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ### 1. 템플릿 준비
 
-`templates/` 폴더에 PPT 템플릿 양식(`.pptx`)을 넣어주세요.
+`root/`내에 `templates/` 폴더에 PPT 템플릿 양식(`.pptx`)을 넣어주세요.
 
 ```
 templates/
@@ -32,7 +32,7 @@ templates/
 
 ### 2. Workspace 구성
 
-`workspaces/` 하위에 **작업 날짜**를 폴더명으로 생성하고, 아래와 같이 구성합니다.
+`root/`내에 `workspaces/` 하위에 **작업 날짜**를 폴더명으로 생성하고, 아래와 같이 구성합니다.
 
 ```
 workspaces/
