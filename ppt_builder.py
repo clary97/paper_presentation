@@ -55,9 +55,11 @@ def _remove_all_slides(prs: Presentation):
         del prs.slides._sldIdLst[0]
 
 
-# ── 파일명 → 캡션 변환 ───────────────────────────────────
+# ── 파일명 → 캡션 변환 (fallback) ────────────────────────
 def _filename_to_caption(filename: str) -> str:
-    """'figure1.png' → 'Figure 1', 'table2.png' → 'Table 2'"""
+    """asset_captions에 매핑이 없을 때 파일명에서 캡션을 추론한다.
+    'figure1.png' → 'Figure 1', 'table2.png' → 'Table 2',
+    임의 파일명은 확장자를 제거하여 그대로 표시."""
     name = os.path.splitext(filename)[0]
     match = re.match(r"(figure|fig|table)(\d+)", name, re.IGNORECASE)
     if match:
@@ -66,7 +68,8 @@ def _filename_to_caption(filename: str) -> str:
             label = "Figure"
         num = match.group(2)
         return f"{label} {num}"
-    return name
+    # 임의 파일명: 언더스코어/하이픈을 공백으로 변환
+    return name.replace("_", " ").replace("-", " ")
 
 
 # ── 제목 슬라이드 ──────────────────────────────────────────
